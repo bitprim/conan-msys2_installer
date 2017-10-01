@@ -57,12 +57,22 @@ The following command both runs all the steps of the conan file, and publishes t
 	$ conan remote add bincrafters "https://api.bintray.com/conan/bincrafters/public-conan"
 
 ## Upload
+	
+To upload a package with an alias involved, it's a three-step process. 
+
+The first step is standard, upload the concrete package you've recently built:
 
     $ conan upload MSYS2/20161025@bincrafters/testing --all -r bincrafters
-	
-## Upload Alias
+
+The second step is to update the "alias package": 
+
+	$ conan alias MSYS2/latest@bincrafters/testing MSYS2/20161025@bincrafters/testing
+
+The third step is to upload the alias package:
 
 	$conan upload MSYS2/latest@bincrafters/testing --all -r bincrafters
+	
+	
 	
 ### License
 [MSYS](LICENSE)
