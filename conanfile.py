@@ -4,14 +4,14 @@ import os
 
 class MSYS2Conan(ConanFile):
     name = "msys2_installer"
-    version = "2.0"
+    version = "20161025"
     license = "MSYS license"
     description = "MSYS2 is a software distro and building platform for Windows"
-    url = "https://github.com/SSE4/conan-msys2-installer"
+    url = "https://github.com/bincrafters/conan-msys2_installer"
     settings = {"os": ["Windows"], "arch": ["x86", "x86_64"]}
     
-    def build(self):
-        tag = "20161025"
+    
+    def source(self):
         if self.settings.arch == "x86_64":
             msys2_arch = 'x86_64'
         elif self.settings.arch == "x86":
@@ -19,12 +19,15 @@ class MSYS2Conan(ConanFile):
         else:
             raise Exception("unsupported architecture %s" % self.settings.arch)
 
-        archive_name = "msys2-base-%s-%s.tar.xz" % (msys2_arch, tag)
+        archive_name = "msys2-base-%s-%s.tar.xz" % (msys2_arch, self.version)
         url = "http://repo.msys2.org/distrib/%s/%s" % (msys2_arch, archive_name)
         self.output.warn("download %s into %s" % (url, archive_name))
         tools.download(url, archive_name, verify=True)
         tools.untargz(archive_name)
         os.unlink(archive_name)
+        
+    def build(source):
+        pass
 
     def package(self):
         if self.settings.arch == "x86_64":

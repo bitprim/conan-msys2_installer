@@ -1,26 +1,42 @@
-## This repository holds a conan recipe for Bazel.
+## This repository holds a conan recipe for MSYS2.
 
-[Conan.io](https://conan.io) package for [Bazel](https://github.com/bazelbuild/bazel) project
+[Conan.io](https://conan.io) package for [MSYS2](https://github.com/bazelbuild/bazel) project
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/Bazel%3Abincrafters).
+The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/MSYS2%3Abincrafters).
 
 ## For Users: Use this package
 
+## Intended Use
+
+This package is intended to be used in Conan recipes as a `build_requires`.  
+
+["Conan `build_requires` feature Explained"](http://conanio.readthedocs.io/en/latest/reference/conanfile/attributes.html#build-requires)
+
+### Conan "latest" version convention
+
+MSYS2 never adopted semantic versioning, so this package offers a unique versioning option on the packages by using a "conan alias" named "latest". 
+
+["Conan Alias feature Explained"](http://conanio.readthedocs.io/en/latest/reference/commands/alias.html?highlight=conan%20alias)
+
+In summary, users can reference the version of "latest" in their requirements as shown in the example below to get the latest release of MSYS2.  "latest" is just an alias which redirects to an actual version of an MSYS2 package. MSYS2 rarely releases new versions, but when they do Bincrafters will compile, create and upload binaries for the package and "latest" will be updated to point to the new version.  Because MSYS2 does not use semantic versioning, a datestamp will be used as the version number on the concrete Bincrafters packages for MSYS2 and the `source()` method of each version of the recipe will use the latest installer from the msys2.org website. 
+
+If users want to use MSYS2, perhaps staying up to date but with slightly more control over when the updates happen, they can choose to point to the concrete packages. Pointing to concrete packages by date has many other uses, such as going back to a specific point in time for troubleshooting. 
+
 ### Basic setup
 
-    $ conan install Bazel/0.6.0@bincrafters/testing
+    $ conan install MSYS2/latest@bincrafters/testing
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    Bazel/0.6.0@bincrafters/testing
+    MSYS2/latest@bincrafters/testing
 
     [generators]
     txt
 
-Complete the installation of requirements for your project running:</small></span>
+Complete the installation of requirements for your project running:
 
     $ mkdir build && cd build && conan install ..
 	
@@ -32,7 +48,7 @@ The example below shows the commands used to publish to bincrafters conan reposi
 
 ## Build and package 
 
-The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from `build_requires` and `requires` , and then running the `build()` method. 
+The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  
 
     $ conan create bincrafters/testing
 	
@@ -42,7 +58,11 @@ The following command both runs all the steps of the conan file, and publishes t
 
 ## Upload
 
-    $ conan upload Bazel/0.6.0@bincrafters/testing --all -r bincrafters
+    $ conan upload MSYS2/20161025@bincrafters/testing --all -r bincrafters
+	
+## Upload Alias
+
+	$conan upload MSYS2/latest@bincrafters/testing --all -r bincrafters
 	
 ### License
-[Apache License 2.0](LICENSE)
+[MSYS](LICENSE)
