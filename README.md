@@ -1,8 +1,8 @@
 ## This repository holds a conan recipe for MSYS2.
 
-[Conan.io](https://conan.io) package for [MSYS2](https://github.com/bazelbuild/bazel) project
+[Conan.io](https://conan.io) package for [MSYS](http://www.msys2.org) project
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/MSYS2%3Abincrafters).
+The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/msys2_installer%3Abincrafters).
 
 ## For Users: Use this package
 
@@ -24,14 +24,14 @@ If users want to use MSYS2, perhaps staying up to date but with slightly more co
 
 ### Basic setup
 
-    $ conan install MSYS2/latest@bincrafters/stable
+    $ conan install msys2_installer/latest@bincrafters/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    MSYS2/latest@bincrafters/stable
+    msys2_installer/latest@bincrafters/stable
 
     [generators]
     txt
@@ -62,17 +62,14 @@ To upload a package with an alias involved, it's a three-step process.
 
 The first step is standard, upload the concrete package you've recently built:
 
-    $ conan upload MSYS2/20161025@bincrafters/stable --all -r bincrafters
+    $ conan upload msys2_installer/20161025@bincrafters/stable --all -r bincrafters
 
 The second step is to update the "alias package": 
 
-	$ conan alias MSYS2/latest@bincrafters/stable MSYS2/20161025@bincrafters/stable
+	$ conan alias msys2_installer/latest@bincrafters/stable msys2_installer/20161025@bincrafters/stable
 
 The third step is to upload the alias package:
 
-	$conan upload MSYS2/latest@bincrafters/stable --all -r bincrafters
+	$conan upload msys2_installer/latest@bincrafters/stable --all -r bincrafters
 	
-	
-	
-### License
-[MSYS](LICENSE)
+
