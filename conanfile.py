@@ -2,7 +2,7 @@ from conans import ConanFile, tools
 import os
 
 
-class MSYS2Conan(ConanFile):
+class MSYS2InstallerConan(ConanFile):
     name = "msys2_installer"
     version = "20161025"
     license = "MSYS license"
