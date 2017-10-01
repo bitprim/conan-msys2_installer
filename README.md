@@ -24,14 +24,14 @@ If users want to use MSYS2, perhaps staying up to date but with slightly more co
 
 ### Basic setup
 
-    $ conan install MSYS2/latest@bincrafters/testing
+    $ conan install MSYS2/latest@bincrafters/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    MSYS2/latest@bincrafters/testing
+    MSYS2/latest@bincrafters/stable
 
     [generators]
     txt
@@ -50,7 +50,7 @@ The example below shows the commands used to publish to bincrafters conan reposi
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  
 
-    $ conan create bincrafters/testing
+    $ conan create bincrafters/stable
 	
 ## Add Remote
 
@@ -62,15 +62,15 @@ To upload a package with an alias involved, it's a three-step process.
 
 The first step is standard, upload the concrete package you've recently built:
 
-    $ conan upload MSYS2/20161025@bincrafters/testing --all -r bincrafters
+    $ conan upload MSYS2/20161025@bincrafters/stable --all -r bincrafters
 
 The second step is to update the "alias package": 
 
-	$ conan alias MSYS2/latest@bincrafters/testing MSYS2/20161025@bincrafters/testing
+	$ conan alias MSYS2/latest@bincrafters/stable MSYS2/20161025@bincrafters/stable
 
 The third step is to upload the alias package:
 
-	$conan upload MSYS2/latest@bincrafters/testing --all -r bincrafters
+	$conan upload MSYS2/latest@bincrafters/stable --all -r bincrafters
 	
 	
 	
