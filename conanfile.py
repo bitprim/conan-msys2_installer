@@ -9,6 +9,7 @@ class MSYS2InstallerConan(ConanFile):
     description = "MSYS2 is a software distro and building platform for Windows"
     url = "https://github.com/bincrafters/conan-msys2_installer"
     settings = {"os": ["Windows"], "arch": ["x86", "x86_64"]}
+    build_requires = "7z_installer/1.0@conan/stable"
     
     def source(self):
         if self.settings.arch == "x86_64":
@@ -22,8 +23,11 @@ class MSYS2InstallerConan(ConanFile):
         url = "http://repo.msys2.org/distrib/%s/%s" % (msys2_arch, archive_name)
         self.output.info("download %s into %s" % (url, archive_name))
         tools.download(url, archive_name)
-        tools.untargz(archive_name)
+        tar_name = archive_name.replace(".xz","")
+        self.run("7z e {0}".format(archive_name))
+        self.run("7z e {0} -aoa".format(tar_name))
         os.unlink(archive_name)
+        os.unlink(tar_name)
         
     def package(self):
         if self.settings.arch == "x86_64":
