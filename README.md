@@ -10,13 +10,13 @@ MSYS2 is software distribution and a building platform for Windows. It provides 
 
 This package is intended to be used in Conan recipes as a `build_requires`.  
 
-["Conan `build_requires` feature Explained"](http://conanio.readthedocs.io/en/latest/reference/conanfile/attributes.html#build-requires)
+[Conan `build_requires` feature Explained](http://conanio.readthedocs.io/en/latest/reference/conanfile/attributes.html#build-requires)
 
 ## Conan "latest" version convention
 
 MSYS2 never adopted semantic versioning, so this package offers a unique versioning option on the packages by using a "conan alias" named "latest". 
 
-["Conan Alias feature Explained"](http://conanio.readthedocs.io/en/latest/reference/commands/alias.html?highlight=conan%20alias)
+[Conan Alias feature Explained](http://conanio.readthedocs.io/en/latest/reference/commands/alias.html?highlight=conan%20alias)
 
 In summary, users can reference the version of "latest" in their requirements as shown in the example below to get the latest release of MSYS2.  "latest" is just an alias which redirects to an actual version of an MSYS2 package. MSYS2 rarely releases new versions, but when they do Bincrafters will compile, create and upload binaries for the package and "latest" will be updated to point to the new version.  Because MSYS2 does not use semantic versioning, a datestamp will be used as the version number on the concrete Bincrafters packages for MSYS2 and the `source()` method of each version of the recipe will use the latest tarball from the msys2.org repository here:  http://repo.msys2.org/distrib. 
 
