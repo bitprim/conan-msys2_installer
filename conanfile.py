@@ -22,7 +22,7 @@ class MSYS2InstallerConan(ConanFile):
         url = "http://repo.msys2.org/distrib/%s/%s" % (msys2_arch, archive_name)
         self.output.info("download %s into %s" % (url, archive_name))
         tools.download(url, archive_name)
-        tools.unzip(archive_name)
+        tools.untargz(archive_name)
         os.unlink(archive_name)
         
     def package(self):
