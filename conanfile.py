@@ -8,7 +8,6 @@ class MSYS2InstallerConan(ConanFile):
     license = "MSYS license"
     description = "MSYS2 is a software distro and building platform for Windows"
     url = "https://github.com/bincrafters/conan-msys2_installer"
-    no_copy_source = True
     settings = {"os": ["Windows"], "arch": ["x86", "x86_64"]}
     
     def source(self):
@@ -22,8 +21,8 @@ class MSYS2InstallerConan(ConanFile):
         archive_name = "msys2-base-%s-%s.tar.xz" % (msys2_arch, self.version)
         url = "http://repo.msys2.org/distrib/%s/%s" % (msys2_arch, archive_name)
         self.output.info("download %s into %s" % (url, archive_name))
-        tools.download(url, archive_name, verify=True)
-        tools.untargz(archive_name)
+        tools.download(url, archive_name)
+        tools.unzip(archive_name)
         os.unlink(archive_name)
         
     def package(self):
