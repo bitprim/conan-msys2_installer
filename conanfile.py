@@ -30,17 +30,17 @@ class MSYS2InstallerConan(ConanFile):
         os.unlink(tar_name)
         
     def package(self):
-        if self.settings.arch == "x86_64":
-            self.copy(pattern="*", dst=".", src="msys64")
-        elif self.settings.arch == "x86":
-            self.copy(pattern="*", dst=".", src="msys32")
-        else:
-            raise Exception("unsupported architecture %s" % self.settings.arch)
-
-    def package_info(self):
-        bin_path = os.path.join(self.package_folder, "usr", "bin")
-        self.output.info("Appending PATH environment variable with : {0}".format(bin_path))
-        self.env_info.path.append(bin_path)
+        self.copy("*", dst=".", src="msys32")
+        self.copy("*", dst=".", src="msys64")
         
+    def package_info(self):
         self.output.info("Creating MSYS_ROOT environment variable with : {0}".format(self.package_folder))
         self.env_info.MSYS_ROOT = self.package_folder
+        
+        self.output.info("Appending PATH environment variable with : %MSYS_ROOT%")
+        self.env_info.path.append("%MSYS_ROOT%")
+        
+        bin_path = os.path.join("%MSYS_ROOT%", "usr", "bin")
+        
+        self.output.info("Appending PATH environment variable with : {0}".format(bin_path))
+        self.env_info.path.append(bin_path)
