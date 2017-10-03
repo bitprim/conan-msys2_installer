@@ -24,16 +24,16 @@ class MSYS2InstallerConan(ConanFile):
         self.output.info("download %s into %s" % (url, archive_name))
         tools.download(url, archive_name)
         tar_name = archive_name.replace(".xz","")
-        self.run("7z e {0}".format(archive_name))
-        self.run("7z e {0} -aoa".format(tar_name))
+        self.run("7z x {0}".format(archive_name))
+        self.run("7z x {0}".format(tar_name))
         os.unlink(archive_name)
         os.unlink(tar_name)
         
     def package(self):
         if self.settings.arch == "x86_64":
-            self.copy(pattern="*", dst=".", src="msys64")
+            self.copy(pattern="*", dst=".", src=".")
         elif self.settings.arch == "x86":
-            self.copy(pattern="*", dst=".", src="msys32")
+            self.copy(pattern="*", dst=".", src=".")
         else:
             raise Exception("unsupported architecture %s" % self.settings.arch)
 
