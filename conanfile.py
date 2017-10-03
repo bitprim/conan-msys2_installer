@@ -38,9 +38,13 @@ class MSYS2InstallerConan(ConanFile):
             raise Exception("unsupported architecture %s" % self.settings.arch)
 
     def package_info(self):
-        bin_path = os.path.join(self.package_folder, "usr", "bin")
-        self.output.info("Appending PATH environment variable with : {0}".format(bin_path))
-        self.env_info.path.append(bin_path)
-        
         self.output.info("Creating MSYS_ROOT environment variable with : {0}".format(self.package_folder))
         self.env_info.MSYS_ROOT = self.package_folder
+        
+        self.output.info("Appending PATH environment variable with : %MSYS_ROOT%")
+        self.env_info.path.append("%MSYS_ROOT%")
+        
+        bin_path = os.path.join("%MSYS_ROOT%", "usr", "bin")
+        
+        self.output.info("Appending PATH environment variable with : {0}".format(bin_path))
+        self.env_info.path.append(bin_path)
