@@ -41,5 +41,6 @@ conaninfo.txt
 conanbuildinfo.*
 CMakeFiles
 CMakeCache.txt
+*.pyc
 cmake_install.cmakes
 Makefile
