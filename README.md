@@ -1,5 +1,7 @@
 ## This repository holds a conan recipe for MSYS2.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/m57753vg4rbyy53h/branch/testing/20161025?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer/branch/testing/20161025)
+
 [Conan.io](https://conan.io) package for [MSYS](http://www.msys2.org) project
 
 The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/msys2_installer%3Abincrafters).
