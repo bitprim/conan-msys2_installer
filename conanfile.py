@@ -31,9 +31,9 @@ class MSYS2InstallerConan(ConanFile):
         
     def package(self):
         if self.settings.arch == "x86_64":
-            self.copy(pattern="*", dst=".", src=".")
+            self.copy(pattern="*", dst=".", src="msys64")
         elif self.settings.arch == "x86":
-            self.copy(pattern="*", dst=".", src=".")
+            self.copy(pattern="*", dst=".", src="msys32")
         else:
             raise Exception("unsupported architecture %s" % self.settings.arch)
 
