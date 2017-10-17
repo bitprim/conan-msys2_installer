@@ -66,7 +66,7 @@ The first step is standard, upload the concrete package you've recently built:
 
     $ conan upload msys2_installer/20161025@bincrafters/stable --all -r bincrafters
 
-The second step is to update the "alias package": 
+The second step is to create or update the "alias package" on your local machine: 
 
 	$ conan alias msys2_installer/latest@bincrafters/stable msys2_installer/20161025@bincrafters/stable
 
