@@ -23,6 +23,5 @@ if __name__ == "__main__":
         os.environ["CONAN_REMOTES"]="https://api.bintray.com/conan/conan-community/conan"
     
     builder = ConanMultiPackager()
-    builder.add({"os" : platform.system(), "arch" : "x86"}, {}, {}, {}) 
-    builder.add({"os" : platform.system(), "arch" : "x86_64"}, {}, {}, {}) 
+    builder.add({"arch" : os.environ["CONAN_ARCHS"]}, {}, {}, {}) 
     builder.run()

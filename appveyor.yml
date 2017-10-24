@@ -8,7 +8,11 @@ environment:
     PYTHON_VERSION: "2.7.8"
     PYTHON_ARCH: "32"
     CONAN_VISUAL_VERSIONS: 15
-  
+    
+    matrix:
+        - CONAN_ARCHS: x86
+        - CONAN_ARCHS: x86_64
+          
 install:
   - set PATH=%PATH%;%PYTHON%/Scripts/
   - pip.exe install conan --upgrade
