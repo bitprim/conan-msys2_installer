@@ -10,17 +10,11 @@ class MSYS2InstallerConan(ConanFile):
     url = "https://github.com/bincrafters/conan-msys2_installer"
     settings = {"os": ["Windows"], "arch": ["x86", "x86_64"]}
     build_requires = "7z_installer/1.0@conan/stable"
-    
-    def source(self):
-        if self.settings.arch == "x86_64":
-            msys2_arch = "x86_64"
-        elif self.settings.arch == "x86":
-            msys2_arch = "i686"
-        else:
-            raise Exception("unsupported architecture %s" % self.settings.arch)
 
-        archive_name = "msys2-base-%s-%s.tar.xz" % (msys2_arch, self.version)
-        url = "http://repo.msys2.org/distrib/%s/%s" % (msys2_arch, archive_name)
+    def source(self):
+        msys_arch = "x86_64" if self.settings.arch == "x86_64" else "i686"
+        archive_name = "msys2-base-%s-%s.tar.xz" % (msys_arch, self.version)
+        url = "http://repo.msys2.org/distrib/%s/%s" % (msys_arch, archive_name)
         self.output.info("download %s into %s" % (url, archive_name))
         tools.download(url, archive_name)
         tar_name = archive_name.replace(".xz","")
@@ -29,9 +23,14 @@ class MSYS2InstallerConan(ConanFile):
         os.unlink(archive_name)
         os.unlink(tar_name)
         
+    def build(self):
+        msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
+        with tools.chdir(os.path.join(msys_dir, "usr", "bin")):
+            self.run('bash -l -c "pacman -S pkgconfig yasm diffutils make --noconfirm')
+
     def package(self):
-        self.copy("*", dst=".", src="msys32")
-        self.copy("*", dst=".", src="msys64")
+        msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
+        self.copy("*", dst=".", src=msys_dir)
         
     def package_info(self):
         self.output.info("Creating MSYS_ROOT environment variable with : {0}".format(self.package_folder))
