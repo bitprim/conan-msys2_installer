@@ -1,6 +1,6 @@
 ## This repository holds a conan recipe for MSYS2.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/m57753vg4rbyy53h/branch/testing/20161025?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer/branch/testing/20161025)
+[![Build status](https://ci.appveyor.com/api/projects/status/m57753vg4rbyy53h/branch/stable/20161025?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer/branch/stable/20161025)
 
 [Conan.io](https://conan.io) package for [MSYS](http://www.msys2.org) project
 
@@ -24,14 +24,14 @@ In summary, users can reference the version of "latest" in their requirements as
 
 ### Basic setup
 
-    $ conan install msys2_installer/latest@bincrafters/testing
+    $ conan install msys2_installer/latest@bincrafters/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    msys2_installer/latest@bincrafters/testing
+    msys2_installer/latest@bincrafters/stable
 
     [generators]
     txt
@@ -50,7 +50,7 @@ The example below shows the commands used to publish to bincrafters conan reposi
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  
 
-    $ conan create bincrafters/testing
+    $ conan create bincrafters/stable
 	
 ## Add Remote
 
@@ -62,14 +62,14 @@ To upload a package with an alias involved, it's a three-step process.
 
 The first step is standard, upload the concrete package you've recently built:
 
-    $ conan upload msys2_installer/20161025@bincrafters/testing --all -r bincrafters
+    $ conan upload msys2_installer/20161025@bincrafters/stable --all -r bincrafters
 
 The second step is to update the "alias package": 
 
-	$ conan alias msys2_installer/latest@bincrafters/testing msys2_installer/20161025@bincrafters/testing
+	$ conan alias msys2_installer/latest@bincrafters/stable msys2_installer/20161025@bincrafters/stable
 
 The third step is to upload the alias package:
 
-	$conan upload msys2_installer/latest@bincrafters/testing --all -r bincrafters
+	$conan upload msys2_installer/latest@bincrafters/stable --all -r bincrafters
 	
 
