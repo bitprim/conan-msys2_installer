@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from conans import ConanFile, tools
 import os
 
@@ -17,7 +20,7 @@ class MSYS2InstallerConan(ConanFile):
         url = "http://repo.msys2.org/distrib/%s/%s" % (msys_arch, archive_name)
         self.output.info("download %s into %s" % (url, archive_name))
         tools.download(url, archive_name)
-        tar_name = archive_name.replace(".xz","")
+        tar_name = archive_name.replace(".xz", "")
         self.run("7z x {0}".format(archive_name))
         self.run("7z x {0}".format(tar_name))
         os.unlink(archive_name)
@@ -27,6 +30,14 @@ class MSYS2InstallerConan(ConanFile):
         msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
         with tools.chdir(os.path.join(msys_dir, "usr", "bin")):
             self.run('bash -l -c "pacman -S pkgconfig yasm diffutils make --noconfirm')
+        # create /tmp dir in order to avoid
+        # bash.exe: warning: could not find /tmp, please create!
+        tmp_dir = os.path.join(msys_dir, 'tmp')
+        if not os.path.isdir(tmp_dir):
+            os.makedirs(tmp_dir)
+        tmp_name = os.path.join(tmp_dir, 'dummy')
+        with open(tmp_name, 'a') as f:
+            os.utime(tmp_name, None)
 
     def package(self):
         msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
