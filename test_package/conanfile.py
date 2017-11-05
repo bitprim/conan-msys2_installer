@@ -9,7 +9,7 @@ class TestPackage(ConanFile):
         with tools.environment_append({'PATH': new_path}):
             self.run(os.path.join('%MSYS_BIN%\\bash -c "yasm --version"'))
             self.run(os.path.join('%MSYS_BIN%\\bash -c "make --version"'))
-            self.run(os.path.join('%MSYS_BIN%\\bash -c "diff --version"'))
+            self.run(os.path.join('%MSYS_BIN%\\bash -c "diff --help"'))
             self.run(os.path.join('%MSYS_BIN%\\bash -c "pkg-config --version"'))
             self.run(os.path.join('%MSYS_BIN%\\bash -c "autoconf --version"'))
             self.run(os.path.join('%MSYS_BIN%\\bash -c "autoreconf --version"'))
