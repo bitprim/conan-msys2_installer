@@ -29,7 +29,7 @@ class MSYS2InstallerConan(ConanFile):
     def build(self):
         msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
         with tools.chdir(os.path.join(msys_dir, "usr", "bin")):
-            self.run('bash -l -c "pacman -S pkgconfig yasm diffutils make --noconfirm')
+            self.run('bash -l -c "pacman -S yasm base-devel --noconfirm')
         # create /tmp dir in order to avoid
         # bash.exe: warning: could not find /tmp, please create!
         tmp_dir = os.path.join(msys_dir, 'tmp')
