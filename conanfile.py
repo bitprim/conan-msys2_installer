@@ -36,7 +36,7 @@ class MSYS2InstallerConan(ConanFile):
         if not os.path.isdir(tmp_dir):
             os.makedirs(tmp_dir)
         tmp_name = os.path.join(tmp_dir, 'dummy')
-        with open(tmp_name, 'a') as f:
+        with open(tmp_name, 'a'):
             os.utime(tmp_name, None)
 
     def package(self):
