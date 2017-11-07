@@ -13,9 +13,9 @@ class MSYS2InstallerConan(ConanFile):
 
     def source(self):
         msys_arch = "x86_64" if self.settings.arch == "x86_64" else "i686"
-        archive_name = "msys2-base-%s-%s.tar.xz" % (msys_arch, self.version)
-        url = "http://repo.msys2.org/distrib/%s/%s" % (msys_arch, archive_name)
-        self.output.info("download %s into %s" % (url, archive_name))
+        archive_name = "msys2-base-{0}-{1}.tar.xz".format(msys_arch, self.version)
+        url = "http://repo.msys2.org/distrib/{0}/{1}".format(msys_arch, archive_name)
+        self.output.info("Download {0} into {1}".format(url, archive_name))
         tools.download(url, archive_name)
         tar_name = archive_name.replace(".xz","")
         self.run("7z x {0}".format(archive_name))
