@@ -13,3 +13,7 @@ class TestPackage(ConanFile):
             self.run('%MSYS_BIN%\\bash -c ^"pkg-config --version^"')
             self.run('%MSYS_BIN%\\bash -c ^"autoconf --version^"')
             self.run('%MSYS_BIN%\\bash -c ^"autoreconf --version^"')
+            self.run('%MSYS_BIN%\\bash -c ^"git --version^"')
+            self.run('%MSYS_BIN%\\bash -c ^"zip --version^"')
+            self.run('%MSYS_BIN%\\bash -c ^"unzip -h^"')
+            self.run('%MSYS_BIN%\\bash -c ^"curl --version^"')
