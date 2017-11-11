@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from conan.packager import ConanMultiPackager, os, re
 import platform
     
@@ -19,10 +22,11 @@ if __name__ == "__main__":
         os.environ["CONAN_USERNAME"] = username
         os.environ["CONAN_CHANNEL"] = channel
         os.environ["CONAN_REFERENCE"] = "{0}/{1}".format(name, version)
-        os.environ["CONAN_UPLOAD"]="https://api.bintray.com/conan/{0}/public-conan".format(username)
-        os.environ["CONAN_REMOTES"]="https://api.bintray.com/conan/conan-community/conan"
+        os.environ["CONAN_UPLOAD"] = "https://api.bintray.com/conan/{0}/public-conan".format(username)
+        os.environ["CONAN_REMOTES"] = "https://api.bintray.com/conan/conan-community/conan"
+        os.environ["CONAN_UPLOAD_ONLY_WHEN_STABLE"] = "1"
+        os.environ["CONAN_STABLE_BRANCH_PATTERN"] = "stable/*"
     
     builder = ConanMultiPackager()
-    builder.add({"os" : platform.system(), "arch" : "x86"}, {}, {}, {}) 
-    builder.add({"os" : platform.system(), "arch" : "x86_64"}, {}, {}, {}) 
+    builder.add({"arch": os.environ["CONAN_ARCHS"]}, {}, {}, {})
     builder.run()
