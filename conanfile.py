@@ -11,7 +11,7 @@ class MSYS2InstallerConan(ConanFile):
     license = "MSYS license"
     description = "MSYS2 is a software distro and building platform for Windows"
     url = "https://github.com/bincrafters/conan-msys2_installer"
-    settings = {"os": ["Windows"], "arch": ["x86", "x86_64"]}
+    settings = {"arch": ["x86", "x86_64"]}
     build_requires = "7z_installer/1.0@conan/stable"
 
     def source(self):
@@ -29,7 +29,7 @@ class MSYS2InstallerConan(ConanFile):
     def build(self):
         msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
         with tools.chdir(os.path.join(msys_dir, "usr", "bin")):
-            self.run('bash -l -c "pacman -S yasm base-devel --noconfirm"')
+            self.run('bash -l -c "pacman -S yasm base-devel git curl zip unzip --noconfirm"')
         # create /tmp dir in order to avoid
         # bash.exe: warning: could not find /tmp, please create!
         tmp_dir = os.path.join(msys_dir, 'tmp')
