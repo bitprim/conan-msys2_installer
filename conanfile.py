@@ -15,6 +15,11 @@ class MSYS2InstallerConan(ConanFile):
     build_requires = "7z_installer/1.0@conan/stable"
 
     def source(self):
+        # build tools have to download files in build method when the
+        # source files downloaded will be different based on architecture or OS
+        pass
+        
+    def build(self):
         msys_arch = "x86_64" if self.settings.arch == "x86_64" else "i686"
         archive_name = "msys2-base-{0}-{1}.tar.xz".format(msys_arch, self.version)
         url = "http://repo.msys2.org/distrib/{0}/{1}".format(msys_arch, archive_name)
@@ -25,15 +30,11 @@ class MSYS2InstallerConan(ConanFile):
         self.run("7z x {0}".format(tar_name))
         os.unlink(archive_name)
         os.unlink(tar_name)
-        
-    def build(self):
+
         msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
         
-        # removed the following pacman installation because it caused 
-        # binary to exceeded bintray max
-        # Can remove if Bintray lifts the max for Conan packages. 
         with tools.chdir(os.path.join(msys_dir, "usr", "bin")):
-            self.run('bash -l -c "pacman -S git curl zip unzip yasm base-devel --noconfirm"')
+            self.run('bash -l -c "pacman -S base-devel --noconfirm"')
         
         # create /tmp dir in order to avoid
         # bash.exe: warning: could not find /tmp, please create!
