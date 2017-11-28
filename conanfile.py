@@ -11,7 +11,7 @@ class MSYS2InstallerConan(ConanFile):
     license = "MSYS license"
     description = "MSYS2 is a software distro and building platform for Windows"
     url = "https://github.com/bincrafters/conan-msys2_installer"
-    settings = {"arch": ["x86", "x86_64"]}
+    settings = {"os": ["Windows"], "arch": ["x86", "x86_64"]}
     build_requires = "7z_installer/1.0@conan/stable"
 
     def source(self):
