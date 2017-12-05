@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from conans import ConanFile, tools
 import os
 
@@ -5,6 +8,11 @@ import os
 class TestPackage(ConanFile):
         
     def test(self):
-        new_path = os.environ['PATH'] + os.pathsep + self.deps_env_info['msys2_installer'].MSYS_BIN
-        with tools.environment_append({'PATH': new_path}):
-            self.run('%MSYS_BIN%\\bash -c ^"make --version^"')
+        bash = tools.which("bash.exe")
+        
+        if bash:
+            self.output.info("using bash.exe from: " + bash)
+        else:
+            raise ConanException("No instance of bash.exe could be found on %PATH%")
+        
+        self.run('bash.exe -c ^"make --version^"')
