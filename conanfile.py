@@ -61,7 +61,7 @@ class MSYS2InstallerConan(ConanFile):
         self.output.info("Creating MSYS_ROOT env var : %s" % msys_root)
         self.env_info.MSYS_ROOT = msys_root
         
-        self.output.info("Creating MSYS_ROOT env var : %s" % msys_bin)
+        self.output.info("Creating MSYS_BIN env var : %s" % msys_bin)
         self.env_info.MSYS_BIN = msys_bin
 
         self.output.info("Appending PATH env var with : " + msys_bin)
