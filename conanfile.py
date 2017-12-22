@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from conans import ConanFile, tools
+from conans import __version__ as conan_version
+from conans.model.version import Version
 import os
 
 
@@ -12,10 +14,23 @@ class MSYS2InstallerConan(ConanFile):
     description = "MSYS2 is a software distro and building platform for Windows"
     url = "https://github.com/bincrafters/conan-msys2_installer"
     build_requires = "7z_installer/1.0@conan/stable"
-    
-    settings = {
-        "os": ["Windows"], "arch": ["x86", "x86_64"]
-    }
+
+    if conan_version < Version("0.99"):
+        settings = {
+            "os": ["Windows"], "arch": ["x86", "x86_64"]
+        }
+    else:
+        settings = {
+            "os_build": ["Windows"], "arch_build": ["x86", "x86_64"]
+        }
+
+    @property
+    def os(self):
+        return self.settings.get_safe("os_build") or self.settings.get_safe("os")
+
+    @property
+    def arch(self):
+        return self.settings.get_safe("arch_build") or self.settings.get_safe("arch")
 
     def source(self):
         # build tools have to download files in build method when the
@@ -23,7 +38,7 @@ class MSYS2InstallerConan(ConanFile):
         pass
         
     def build(self):
-        msys_arch = "x86_64" if self.settings.arch == "x86_64" else "i686"
+        msys_arch = "x86_64" if self.arch == "x86_64" else "i686"
         archive_name = "msys2-base-{0}-{1}.tar.xz".format(msys_arch, self.version)
         url = "http://repo.msys2.org/distrib/{0}/{1}".format(msys_arch, archive_name)
         self.output.info("Download {0} into {1}".format(url, archive_name))
@@ -34,7 +49,7 @@ class MSYS2InstallerConan(ConanFile):
         os.unlink(archive_name)
         os.unlink(tar_name)
 
-        msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
+        msys_dir = "msys64" if self.arch == "x86_64" else "msys32"
         
         with tools.chdir(os.path.join(msys_dir, "usr", "bin")):
             self.run('bash -l -c "pacman -S base-devel --noconfirm"')
@@ -50,7 +65,7 @@ class MSYS2InstallerConan(ConanFile):
 
 
     def package(self):
-        msys_dir = "msys64" if self.settings.arch == "x86_64" else "msys32"
+        msys_dir = "msys64" if self.arch == "x86_64" else "msys32"
         self.copy("*", dst=".", src=msys_dir)
         
 
