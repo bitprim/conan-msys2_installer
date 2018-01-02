@@ -10,9 +10,10 @@ import os
 class MSYS2InstallerConan(ConanFile):
     name = "msys2_installer"
     version = "20161025"
-    license = "MSYS license"
     description = "MSYS2 is a software distro and building platform for Windows"
     url = "https://github.com/bincrafters/conan-msys2_installer"
+    license = "MSYS license"
+    exports = ["LICENSE.md"]
     build_requires = "7z_installer/1.0@conan/stable"
 
     if conan_version < Version("0.99"):
@@ -81,54 +82,3 @@ class MSYS2InstallerConan(ConanFile):
 
         self.output.info("Appending PATH env var with : " + msys_bin)
         self.env_info.path.append(msys_bin)
-              
-        # self.process_path_options(msys_bin, "bash.exe")
-
-    # Commenting out because a feature was removed from conan in 0.29
-    # Defaulting to adding MSYS to path until we can give user the option
-    # Todo: Revisit upon resolution of Conan issue 2096
-    # 
-    # options = {
-        # 'modify_path': ['append', 'prepend', 'skip'],
-        # 'if_path_conflict': ['replace', 'skip', 'add_anyway']
-    # }
-    # default_options = (
-        # 'modify_path=append', 
-        # 'if_path_conflict=add_anyway'
-    # )
-    
-    # def package_id(self):
-        # self.info.options.modify_path = "any"
-        # self.info.options.if_path_conflict = "any"      
-    
-
-
-        
-    # def process_path_options(self, value_to_add, conflict_search_string):
-        # if self.options.if_path_conflict ==  'add_anyway':
-            # self.modify_path(value_to_add)
-        # else:
-            # existing_path = tools.which(conflict_search_string)
-            # if existing_path:
-                # if self.options.if_path_conflict ==  'replace':
-                    # self.output.info(conflict_search_string + " already exists in PATH at : " + existing_path)
-                    # self.output.info("Replacing with path : " + value_to_add)
-                    # self.output.warn("Replacement method not yet implemented.")
-                    # # TODO: Actually implement/verify replacement behavior
-                # else:
-                    # self.modify_path(value_to_add)
-            # else:
-                # self.modify_path(value_to_add)
-            
-    # def modify_path(self, value_to_append):
-        # if self.options.modify_path ==  'append':
-            # # TODO: Actually implement/verify append behavior
-            # self.output.info("Appending PATH env var with : " + value_to_append)
-            # self.env_info.path.append(value_to_append)
-        # elif self.options.modify_path == 'prepend':
-            # # TODO: Actually implement/verify prepend behavior
-            # self.output.info("Prepending PATH env var with MSYS_BIN")
-            # self.env_info.path.append(value_to_append)
-        # else:  # do nothing for skip
-            # pass
-             
