@@ -1,77 +1,47 @@
-## This repository holds a conan recipe for MSYS2.
+## Package Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/m57753vg4rbyy53h/branch/stable/20161025?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer/branch/stable/20161025)
+| Bintray | Appveyor | Travis | 
+|---------|-----------|--------|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/msys2_installer%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/msys2_installer%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/m57753vg4rbyy53h/branch/stable/20161025?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer/branch/stable/20161025)|N/A|
 
-[Conan.io](https://conan.io) package for [MSYS](http://www.msys2.org) project
+## Conan.io Information
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/msys2_installer%3Abincrafters).
+Bincrafters packages can be found in the following public Conan repository:
 
-MSYS2 is software distribution and a building platform for Windows. It provides a Unix-like environment, a command-line interface and a software repository making it easier to install, use, build and port software on Windows.  Many C++ projects are setup to be built with MSYS2 when built on Windows, rather than MSBuild. 
+[Bincrafters Public Conan Repository on Bintray](https://bintray.com/bincrafters/public-conan)
 
-## Intended Use
+*Note: You can click the "Set Me Up" button on the Bintray page above for instructions on using packages from this repository.*
 
-This package is intended to be used in Conan recipes as a `build_requires`.  
+## Issues
 
-[Conan `build_requires` feature Explained](http://conanio.readthedocs.io/en/latest/reference/conanfile/attributes.html#build-requires)
+If you wish to report an issue or make a request for a Bincrafters package, please do so here:  
 
-## Conan "latest" version convention
+[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
 
-MSYS2 never adopted semantic versioning, so this package offers a unique versioning option on the packages by using a "conan alias" named "latest". 
+## General Information
 
-[Conan Alias feature Explained](http://conanio.readthedocs.io/en/latest/reference/commands/alias.html?highlight=conan%20alias)
+This GIT repository is managed by the Bincrafters team and holds files related to Conan.io.  For detailed information about Bincrafters and Conan.io, please visit the following resources: 
 
-In summary, users can reference the version of "latest" in their requirements as shown in the example below to get the latest release of MSYS2.  "latest" is just an alias which redirects to an actual version of an MSYS2 package. MSYS2 rarely releases new versions, but when they do Bincrafters will compile, create and upload binaries for the package and "latest" will be updated to point to the new version.  Because MSYS2 does not use semantic versioning, a datestamp will be used as the version number on the concrete Bincrafters packages for MSYS2 and the `source()` method of each version of the recipe will use the latest tarball from the msys2.org repository here:  http://repo.msys2.org/distrib. 
+[Bincrafters Wiki - Common README](https://github.com/bincrafters/community/wiki/Common-README.md)
 
-## For Users: Use this packages
+[Bincrafters Technical Documentation](http://bincrafters.readthedocs.io/en/latest/)
 
-### Basic setup
+[Bincrafters Blog](https://bincrafters.github.io)
 
-    $ conan install msys2_installer/latest@bincrafters/stable
+## License Information
 
-### Project setup
+Bincrafters packages are hosted on [Bintray](https://bintray.com) and contain Open-Source software which is licensed by the software's maintainers and NOT Bincrafters.  For each Open-Source package published by Bincrafters, the packaging process obtains the required license files along with the original source files from the maintainer, and includes these license files in the generated Conan packages.  
 
-If you handle multiple dependencies in your project is better to add a *conanfile.txt*
+The contents of this GIT repository are completely separate from the software being packaged and therefor licensed separately.  The license for all files contained in this GIT repository are defined in the [LICENSE.md](LICENSE.md) file in this repository.  The licenses included with all Conan packages published by Bincrafters can be found in the Conan package directories in the following locations, relative to the Conan Cache root (`~/.conan` by default): 
 
-    [requires]
-    msys2_installer/latest@bincrafters/stable
+### License(s) for packaged software: 
 
-    [generators]
-    txt
+    ~/.conan/data/<pkg_name>/<pkg_version>/bincrafters/package/<random_package_id>/license/<LICENSE_FILES_HERE>
 
-Complete the installation of requirements for your project running:
-
-    $ mkdir build && cd build && conan install ..
+*Note :   The most common filenames for OSS licenses are `LICENSE` AND `COPYING` without file extensions.*
 	
-Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git. 
+### License for Bincrafters recipe: 
 
-## For Packagers: Publish this Package
+    ~/.conan/data/<pkg_name>/<pkg_version>/bincrafters/export/LICENSE.md 
 
-The example below shows the commands used to publish to bincrafters conan repository. To publish to your own conan respository (for example, after forking this git repository), you will need to change the commands below accordingly. 
-
-## Build and package 
-
-The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  
-
-    $ conan create bincrafters/stable
 	
-## Add Remote
-
-	$ conan remote add bincrafters "https://api.bintray.com/conan/bincrafters/public-conan"
-
-## Upload
-	
-To upload a package with an alias involved, it's a three-step process. 
-
-The first step is standard, upload the concrete package you've recently built:
-
-    $ conan upload msys2_installer/20161025@bincrafters/stable --all -r bincrafters
-
-The second step is to create or update the "alias package" on your local machine: 
-
-	$ conan alias msys2_installer/latest@bincrafters/stable msys2_installer/20161025@bincrafters/stable
-
-The third step is to upload the alias package:
-
-	$conan upload msys2_installer/latest@bincrafters/stable --all -r bincrafters
-	
-
