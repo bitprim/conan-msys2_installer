@@ -2,7 +2,7 @@
 
 | Bintray | Appveyor | Travis | 
 |---------|-----------|--------|
-|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/msys2_installer%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/msys2_installer%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/m57753vg4rbyy53h/branch/stable/20161025?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer/branch/stable/20161025)|N/A|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/msys2_installer%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/msys2_installer%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-msys2_installer?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-msys2-installer)|N/A|
 
 ## Conan.io Information
 
